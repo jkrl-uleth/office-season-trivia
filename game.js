@@ -71,25 +71,28 @@
         var gameClips = []
         for (var tier of data) {
             var sample = _.sampleSize(tier.clips, tier.sampleSize)
-            gameClips.push(sample)
+            for (var clip of sample) {
+                gameClips.push(clip)
+            }
         }
         return gameClips
     }
 
-    function questionDiv(question) {
-        return `<div class="active-question">${question.score}</div>`
+    function clipDiv() {
+        return `<div class="active-clip"></div>`
     }
 
-    function renderQuestions(selectedQuestions) {
-        board = document.getElementById("game-board")
-        for (var question in selectedQuestions) {
-            board.appendChild(questionDiv(question))
+    function renderClips(selectedClips) {
+        board = document.getElementById("board")
+        for (var clip in selectedClips) {
+            board.appendChild(clipDiv())
         }
     }
 
     function initGame() {
-        var selectedQuestions = selectQuestions()
-        renderQuestions(selectedQuestions)
+        var gameClips = selectClips()
+        console.log(gameClips)
+        renderClips(gameClips)
     }
 
     initGame()
