@@ -1,8 +1,8 @@
 ;(function () {
     var questions = [
-        { audio: "some/path", character: "michael", season: 4, score: 250 },
-        { audio: "some/path", character: "michael", season: 4, score: 250 },
-        { audio: "some/path", character: "michael", season: 4, score: 250 },
+        { audio: "some/path", season: 4, score: 250 },
+        { audio: "some/path", season: 4, score: 250 },
+        { audio: "some/path", season: 4, score: 250 },
     ]
     var scores = [250, 500, 1000]
     var score = 0
