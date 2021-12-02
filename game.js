@@ -72,19 +72,25 @@
         for (var tier of data) {
             var sample = _.sampleSize(tier.clips, tier.sampleSize)
             for (var clip of sample) {
-                gameClips.push(clip)
+                gameClips.push(`${clip}_${tier.points}`)
             }
         }
         return gameClips
     }
 
-    function clipDiv() {
-        return `<div class="active-clip"></div>`
+    function clipDiv(clip) {
+        var info = clip.split("_")
+        var clip = document.createElement("div")
+        clip.classList.add("clip")
+        clip.setAttribute("data-season", info[0])
+        clip.setAttribute("data-clip", info[1])
+        clip.setAttribute("data-points", info[2])
+        // todo: add the onclick
     }
 
-    function renderClips(selectedClips) {
+    function renderClips(gameClips) {
         board = document.getElementById("board")
-        for (var clip in selectedClips) {
+        for (var clip of gameClips) {
             board.appendChild(clipDiv())
         }
     }
