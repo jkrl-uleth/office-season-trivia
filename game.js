@@ -19,7 +19,7 @@
                 "4_turtles",
                 "4_i-declare-bankruptcy",
                 "4_i-have-flaws",
-                "4_pretzel-day",
+                "3_pretzel-day",
                 "5_no-arms-or-legs",
                 "5_stay-calm",
                 "5_no-god-no",
