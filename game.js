@@ -25,7 +25,7 @@
                 "5_no-god-no",
             ],
             points: 50,
-            sampleSize: 4,
+            sampleSize: 6,
         },
         {
             clips: [
@@ -48,7 +48,7 @@
         },
         {
             clips: [
-                "1_gentleman_and_scholar",
+                "1_gentleman-and-scholar",
                 "1_heroes-of-mine",
                 "2_bang-on-this-mug",
                 "2_rule-of-business",
@@ -60,14 +60,33 @@
                 "5_no-idea-what-to-do",
             ],
             points: 250,
-            sampleSize: 2,
+            sampleSize: 4,
         },
     ]
-    var answered = 0 // game ends when 12 questions have been answered
     var activeClip = null // data for currently selected clip (season, file, points)
     var score = 0 // cumulative game score
-    var correct = new Audio("audio/right-answer.mp3")
-    var incorrect = new Audio("audio/wrong-answer.mp3")
+    var correct = new Audio("audio/right-answer.mp3") // sound played when a question is answered correctly
+    var incorrect = new Audio("audio/wrong-answer.mp3") // sound played when a question is answered incorrectly
+
+    var sampleTotal = 0 // total number of questions used (set in line below)
+    data.forEach(e => (sampleTotal += e.sampleSize))
+    var answered = 0 // game ends when this var is equal to sampleTotal
+
+    function addCompletedListener() {
+        var playAgain = document.getElementById("play-again")
+        playAgain.addEventListener("click", function () {
+            window.location.reload()
+        })
+    }
+
+    function renderCompleted() {
+        var tiers = document.querySelectorAll(".tier-container")
+        var completed = document.getElementById("completed")
+        var finalScore = document.getElementById("final-score")
+        tiers.forEach(e => (e.style.display = "none"))
+        finalScore.innerHTML = `Final Score: ${score}`
+        completed.style.display = "flex"
+    }
 
     function answerHandler(season) {
         var clip = document.getElementById(activeClip.file)
@@ -83,8 +102,7 @@
         clip.classList.add("disabled")
         clip.onclick = null
         modal.style.display = "none"
-        if (++answered === 12) {
-        }
+        if (++answered === sampleTotal) renderCompleted()
     }
 
     function renderSeasonDiv(season) {
@@ -156,11 +174,11 @@
     }
 
     function init() {
+        var gameClips = selectClips()
         document.getElementById("score").innerHTML = "Score: 0"
         renderModal()
-        var gameClips = selectClips()
-        console.log(gameClips)
         renderClips(gameClips)
+        addCompletedListener()
     }
 
     init()
